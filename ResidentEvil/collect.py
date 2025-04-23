@@ -1,5 +1,6 @@
 
 import requests
+from bs4 import BeautifulSoup
 
 url = 'https://www.residentevildatabase.com/personagens/ada-wong/'
 
@@ -23,5 +24,9 @@ headers = {
 
 resp = requests.get(url, headers=headers)
 
-print(resp.status_code)
+soup = BeautifulSoup(resp.text, "html.parser")
+div = soup.find("div" , class_='td-page-content')
 
+paragrafo = div.find_all("p")[1]
+
+print(paragrafo.find_all("em"))
